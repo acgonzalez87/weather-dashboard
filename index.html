@@ -21,11 +21,29 @@
     <header class="bg-dark text-white text-center p-2">
       <h1>Weather Dashboard</h1>
     </header>
-    <section class="container-fluid">
-      <form id="search-form">
-        <h4>Search for a City!</h4>
-      </form>
-    </section>
+    <main class="container-fluid">
+        <div class = "row">
+            <div class="col-12 col-md-3 p-2 search-column">
+                <form class = "border p-2" id = "city-search">
+                    <h4>Search for a City!</h2>
+                    <input id ="city-input" type = "text" autofocus = "true" class = "form-input"/>
+                    <button class = "btn btn-primary" type = "submit">Search</button>
+                </form>
+                <div class = "past-searches border" id = "past-searches"></div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div class = "row border selected-city" id = "current-forecast">
+                    <div class = "col-12">
+                        <h2 id ="searched-city"></h2>
+                        <div id = "city-current-weather" class = "list-group"></div>
+                    </div>  
+                </div>
+                <div class = "row border" id = "five-day-forecast">
+                        <h2 class= "col-12" id = "forecast"></h2>
+                        <div class = "d-flex" id = "fiveday-container"></div>
+                </div>  
+            </div>
+        </main>
   </body>
 
   <script
