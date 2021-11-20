@@ -14,7 +14,7 @@ var forecastTitle = document.getElementById("forecast-title");
 const apiKey = "759947496ba0f47c031beafe72e85c1c";
 
 var getCityWeather = function (city) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+  var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -34,6 +34,13 @@ var formSubmit = function (event) {
   } else {
     alert("Please enter a city to search!");
   }
+
+  savedSearch();
+  searchHistory(city);
+};
+
+var savedSearch = function () {
+  localStorage.setItem("cities", JSON.stringify(cities));
 };
 
 var displayWeather = function (weather, citySearch) {
@@ -70,14 +77,14 @@ var displayWeather = function (weather, citySearch) {
 
   cityCurrentWeather.appendChild(windSpeed);
 
-  uvIndexInfo(latitude, longitude);
+  uvIndexInfo(lat, lon);
 };
 
-var latitude = weather.coord.lat;
-var longitude = weather.coord.lon;
+var lat = weather.coord.lat;
+var lon = weather.coord.lon;
 
-var uvIndexInfo = function (latitude, longitude) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+var uvIndexInfo = function (lat, lon) {
+  var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
       displayUvIndexInfo(data);
