@@ -14,7 +14,7 @@ var forecastTitle = document.getElementById("forecast-title");
 const apiKey = "759947496ba0f47c031beafe72e85c1c";
 
 var getCityWeather = function (city) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -25,7 +25,7 @@ var getCityWeather = function (city) {
 
 var formSubmit = function (event) {
   event.preventDefault();
-  var city = cityInput.ariaValueMax.trim();
+  var city = cityInput.value.trim();
   if (city) {
     getCityWeather(city);
     getFiveDays(city);
@@ -50,14 +50,14 @@ var displayWeather = function (weather, citySearch) {
   var currentDate = document.createElement("span");
   currentDate.textContent =
     " (" + moment(weather.dt.value).format("MMM D, YYYY") + ") ";
-  citySearchInputEl.appendChild(currentDate);
+  searchedCity.appendChild(currentDate);
 
   var weatherArt = document.createElement("img");
   weatherArt.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
   );
-  citySearchInputEl.appendChild(weatherArt);
+  searchedCity.appendChild(weatherArt);
 
   var tempInfo = document.createElement("span");
   tempInfo.textContent = "Temperature: " + weather.main.temp + " °F";
@@ -77,19 +77,20 @@ var displayWeather = function (weather, citySearch) {
 
   cityCurrentWeather.appendChild(windSpeed);
 
+  var lat = weather.coord.lat;
+  var lon = weather.coord.lon;
   uvIndexInfo(lat, lon);
 };
 
-var lat = weather.coord.lat;
-var lon = weather.coord.lon;
-
 var uvIndexInfo = function (lat, lon) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  var apiURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
       displayUvIndexInfo(data);
     });
   });
+  var lat = weather.coord.lat;
+  var lon = weather.coord.lon;
 };
 
 var displayUvIndexInfo = function (index) {
