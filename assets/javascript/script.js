@@ -115,7 +115,7 @@ var displayUvIndexInfo = function (index) {
 };
 
 var getFiveDays = function (city) {
-  var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
+  var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}&units=imperial`;
 
   fetch(apiURL).then(function (response) {
     response.json().then(function (data) {
@@ -126,7 +126,8 @@ var getFiveDays = function (city) {
 
 var displayFiveDays = function (weather) {
   fiveDayContainer.textContent = "";
-  forecastTitle.textContent = "Five Day Forecast: ";
+  fiveDayForecast.textContent = "Five Day Forecast: ";
+  fiveDayForecast.classList = "alert alert-dark";
 
   var forecast = weather.list;
   for (var i = 5; i < forecast.length; i = i + 8) {
@@ -169,7 +170,7 @@ var displayFiveDays = function (weather) {
 
 var searchHistory = function (searchHistory) {
   pastSearch = document.createElement("button");
-  pastSearch.textContent = pastSearch;
+  pastSearch.textContent = searchHistory;
   pastSearch.classList = "d-flex w-100 btn-light border p-2";
   pastSearch.setAttribute("data-city", searchHistory);
   pastSearch.setAttribute("type", "submit");
