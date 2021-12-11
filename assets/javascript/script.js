@@ -118,11 +118,14 @@ var getFiveDays = function (city) {
   var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}&units=imperial`;
 
   fetch(apiURL).then(function (response) {
-    response.json().then(function (data) {
-      displayFiveDays(data);
+    response.json().then(function (weather) {
+      console.log(weather);
+      displayFiveDays(weather);
     });
   });
 };
+
+// got data for 5 day forecast data pulled however have not been able to figure out why it will not render on the page, the current weather renders just fine
 
 var displayFiveDays = function (weather) {
   fiveDayContainer.textContent = "";
